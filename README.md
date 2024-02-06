@@ -1,4 +1,4 @@
-# Blood-Type-Inheritance
+# Blood Type Inheritance Simulator
 
 # Background
 A person’s blood type is determined by two alleles. The three possible alleles are A, B, and O, of which each person has two (possibly the same, possibly different). Each of a child’s parents randomly passes one of their two blood type alleles to their child. The possible blood type combinations, then, are: OO, OA, OB, AO, AA, AB, BO, BA, and BB.
