@@ -61,18 +61,6 @@ def create_family(generations):
     return p
 
 
-def free_family(p):
-    # Handle base case
-    if p is None:
-        return
-
-    # Free parents recursively
-    free_family(p.parents[0])
-    free_family(p.parents[1])
-
-    # Free the child (In Python, you don't explicitly free memory, as it is managed automatically)
-
-
 def print_family(p, generation):
     # Handle base case
     if p is None:
