@@ -1,4 +1,5 @@
 import random
+import sys
 
 # Each person has two parents and two alleles
 class Person:
@@ -6,8 +7,30 @@ class Person:
         self.parents = [None, None]
         self.alleles = ['', '']
 
+def main():
+     # Get the number of generations from the command line
+    if len(sys.argv) != 2:
+        print("Usage: python script.py <number_of_generations>")
+        sys.exit(1)
+
+    try:
+        generations = int(sys.argv[1])
+    except ValueError:
+        print("Please enter a valid integer for the number of generations.")
+        sys.exit(1)
+
+    # Seed random number generator
+    random.seed()
+
+    # Create a new family with the specified number of generations
+    p = create_family(generations)
+
+    # Print family tree of blood types
+    print_family(p, 0)
+    
+    
 def create_family(generations):
-    # Allocate memory for new person
+    # Create a new person
     p = Person()
 
     # If there are still generations left to create
@@ -16,7 +39,7 @@ def create_family(generations):
         parent0 = create_family(generations - 1)
         parent1 = create_family(generations - 1)
 
-        # Assign parent pointers to the child
+        # Assign references to the parent objects to the child's 'parents' attribute
         p.parents[0] = parent0
         p.parents[1] = parent1
 
@@ -26,7 +49,7 @@ def create_family(generations):
 
     # If there are no generations left to create
     else:
-        # Set parent pointers to None
+        # Set 'parents' attribute to None since there are no parents
         p.parents[0] = None
         p.parents[1] = None
 
@@ -37,6 +60,7 @@ def create_family(generations):
     # Return the newly created person
     return p
 
+
 def free_family(p):
     # Handle base case
     if p is None:
@@ -46,8 +70,8 @@ def free_family(p):
     free_family(p.parents[0])
     free_family(p.parents[1])
 
-    # Free the child
-    del p
+    # Free the child (In Python, you don't explicitly free memory, as it is managed automatically)
+
 
 def print_family(p, generation):
     # Handle base case
@@ -69,6 +93,7 @@ def print_family(p, generation):
     print_family(p.parents[0], generation + 1)
     print_family(p.parents[1], generation + 1)
 
+
 # Randomly chooses a blood type allele
 def random_allele():
     r = random.randint(0, 2)
@@ -79,15 +104,7 @@ def random_allele():
     else:
         return 'O'
 
+
 if __name__ == "__main__":
-    # Seed random number generator
-    random.seed()
-
-    # Create a new family with three generations
-    p = create_family(3)
-
-    # Print family tree of blood types
-    print_family(p, 0)
-
-    # Free memory
-    free_family(p)
+    main()
+   
